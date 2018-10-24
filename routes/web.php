@@ -179,10 +179,10 @@ Route::get('/user', 'UsersController@index');
 //例如，你可以注入与给定 ID 匹配的整个 User 模型实例，而不是注入用户的 ID。
 //隐式绑定
 //Laravel 会自动解析定义在路由或控制器行为中与类型提示的变量名匹配的路由段名称的 Eloquent 模型。例如：
-//Route::get('api/users/{user}', function (App\User $user) {
+//Route::get('api/users/{user}', function (App\Models\User $user) {
 //    return $user->email;
 //});
-//在这个例子中，由于 $user 变量被类型提示为 Eloquent 模型 App\User，变量名称又与 URI 中的 {user} 匹配，因此，Laravel 会自动注入与请求 URI 中传入的 ID 匹配的用户模型实例。
+//在这个例子中，由于 $user 变量被类型提示为 Eloquent 模型 App\Models\User，变量名称又与 URI 中的 {user} 匹配，因此，Laravel 会自动注入与请求 URI 中传入的 ID 匹配的用户模型实例。
 //如果在数据库中找不到对应的模型实例，将会自动生成 404 异常。
 //自定义键名
 //如果你想要模型绑定在检索给定的模型类时使用除 id 之外的数据库字段，你可以在 Eloquent 模型上重写 getRouteKeyName 方法：
@@ -200,13 +200,13 @@ Route::get('/user', 'UsersController@index');
 //public function boot()
 //{
 //    parent::boot();
-//    Route::model('user', App\User::class);
+//    Route::model('user', App\Models\User::class);
 //}
 //接着，定义一个包含 {user} 参数的路由：
-//Route::get('profile/{user}', function (App\User $user) {
+//Route::get('profile/{user}', function (App\Models\User $user) {
 //    //
 //});
-//因为我们已经将所有 {user} 参数绑定至 App\User 模型，所以 User 实例将被注入该路由。例如，profile/1 的请求会注入数据库中 ID 为 1 的 User 实例。
+//因为我们已经将所有 {user} 参数绑定至 App\Models\User 模型，所以 User 实例将被注入该路由。例如，profile/1 的请求会注入数据库中 ID 为 1 的 User 实例。
 //如果在数据库不存在对应 ID 的数据，就会自动抛出一个 404 异常。
 //自定义解析逻辑
 //如果你想要使用自定义的解析逻辑，就使用 Route::bind 方法。传递到 bind 方法的闭包会接受 URI 中大括号对应的值，并且返回你想要在该路由中注入的类的实例：
@@ -215,7 +215,7 @@ Route::get('/user', 'UsersController@index');
 //    parent::boot();
 //
 //    Route::bind('user', function ($value) {
-//        return App\User::where('name', $value)->first();
+//        return App\Models\User::where('name', $value)->first();
 //    });
 //}
 //表单方法伪造
